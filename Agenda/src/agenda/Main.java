@@ -7,7 +7,7 @@ package agenda;
 
 /**
  *
- * @author Javier
+ * @author GrupoX
  */
 public class Main {
     
