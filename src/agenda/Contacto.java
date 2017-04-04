@@ -9,10 +9,11 @@ package agenda;
  *
  * @author pc
  */
+import SearchTree.Position;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class Contacto {
+public class Contacto implements Position{
     private String nombre;
     private LinkedList<Telefono> telefonos;
 
@@ -28,25 +29,40 @@ public class Contacto {
         }else if((!nombre.equals(""))&&(telefono==null)){
             this.nombre=nombre;
             telefonos = new LinkedList<>();
+        }else{
+            this.nombre = nombre;
+            this.telefonos=new LinkedList<>();
+            this.telefonos.add(telefono);
         }
-      
     }
     public Contacto(String nombre, LinkedList<Telefono> telefonos) throws Exception {
-        
-        if ((nombre==null || nombre=="") && (telefonos==null)){
+         if ((nombre.equals(""))&&(telefonos==null)){
              throw new Exception("Contacto requiere nombre y/o telefono");
         }
-        this.nombre = nombre;
-        this.telefonos = new LinkedList<>();
-        if (telefonos!=null)
+        else if((nombre.equals(""))&&telefonos!=null){
+            this.nombre=telefonos.get(0).toString();
+            this.telefonos=telefonos;
+        }else if((!nombre.equals(""))&&(telefonos==null)){
+            this.nombre=nombre;
+            this.telefonos = new LinkedList<>();
+        }else{
+            this.nombre = nombre;
+            this.telefonos=new LinkedList<>();
             this.telefonos = telefonos;
+        }
     }
     public void setNombre(String nomb) throws Exception{                
-        if (this.telefonos.size()==0){
-            if (nomb==null ||nomb=="")
-             throw new Exception("Contacto requiere nombre y/o telefono");
+        if(nomb.equals("")){
+            if(this.telefonos.size()==0){
+                throw new Exception("Contacto requiere nombre y/o telefono");
+            }
+            else{
+                this.nombre=this.telefonos.get(0).toString();
+            }
         }
-        this.nombre=nomb;
+        else{
+            this.nombre=nomb;
+        }
     }
 
     public String getNombre() {
@@ -85,10 +101,7 @@ public class Contacto {
             return false;
         }
         final Contacto other = (Contacto) obj;
-        if (!Objects.equals(this.nombre, other.nombre)) {
-            return false;
-        }
-        return true;
+        return this.nombre.equals(other.nombre); 
     }
     
     public int compareTo(Contacto a){
@@ -100,5 +113,10 @@ public class Contacto {
        else{
            return ret;
        }
+    }
+
+    @Override
+    public Object getElement() {
+        return this;
     }
 }
