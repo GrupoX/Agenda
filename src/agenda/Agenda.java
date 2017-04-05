@@ -96,7 +96,7 @@ public class Agenda{
     }
 
     public void Vaciar() {
-        //Mostrar feedBacj
+        //Mostrar feedBack
         this.arbolDeContactos = null;
     }
     //Suponiendo que no exista la posibilidad de dos contactos con el mismo nombre
@@ -104,7 +104,7 @@ public class Agenda{
         try {
             Telefono tlf = null;
             Contacto contactoParaEliminar = new Contacto(nombre,tlf);
-            //Mostrar notidicacion de "ELIMINADO2
+            //Mostrar notificacion de "ELIMINADO"
             this.arbolDeContactos.remove(contactoParaEliminar);
         } catch (Exception ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
