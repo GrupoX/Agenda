@@ -1,4 +1,4 @@
-package Interfaz;
+package interfaz.agenda;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -24,7 +24,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
         Toolkit t = Toolkit.getDefaultToolkit();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((int) (screenSize.width * 0.5) - 150, (int) (screenSize.height * 0.5) - 252);
-        this.setSize(300, 505);
+        this.setSize(300, 525);
         actualizarTabla("todo");
         //Mostrar solo panel Principal
         panelOpciones.setVisible(false);
@@ -65,7 +65,6 @@ public class InterfazGrafica extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -74,6 +73,8 @@ public class InterfazGrafica extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaContactos = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -124,7 +125,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
         );
 
         getContentPane().add(panelBuscar);
-        panelBuscar.setBounds(10, 10, 210, 58);
+        panelBuscar.setBounds(10, 30, 210, 58);
         panelBuscar.getAccessibleContext().setAccessibleDescription("");
 
         panelOpciones.setBackground(new java.awt.Color(255, 255, 255));
@@ -154,14 +155,6 @@ public class InterfazGrafica extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("Salir");
-        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel8MouseReleased(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
@@ -171,8 +164,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel6))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         panelOpcionesLayout.setVerticalGroup(
@@ -184,13 +176,11 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelOpciones);
-        panelOpciones.setBounds(150, 10, 100, 110);
+        panelOpciones.setBounds(150, 30, 100, 90);
 
         jPanel1.setBackground(new java.awt.Color(40, 129, 186));
         jPanel1.setForeground(new java.awt.Color(40, 129, 186));
@@ -316,7 +306,37 @@ public class InterfazGrafica extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 300, 510);
+        jPanel2.setBounds(0, 20, 300, 510);
+
+        jPanel3.setBackground(new java.awt.Color(40, 129, 186));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/close.png"))); // NOI18N
+        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel10.setFocusable(false);
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel10MouseReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(278, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 4, Short.MAX_VALUE)
+                .addComponent(jLabel10))
+        );
+
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(0, 0, 300, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -398,10 +418,6 @@ public class InterfazGrafica extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel9MouseReleased
 
-    private void jLabel8MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseReleased
-        this.dispose();
-    }//GEN-LAST:event_jLabel8MouseReleased
-
     private void tablaContactosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaContactosMouseReleased
         if (!buscarOpen && !opcionesOpen && !viendoContacto) {
             System.out.println("HAS SELECCIONADO EL: " + tablaContactos.getValueAt(tablaContactos.getSelectedRow(), 1));
@@ -414,6 +430,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_tablaContactosMouseReleased
+
+    private void jLabel10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseReleased
+        this.dispose();
+    }//GEN-LAST:event_jLabel10MouseReleased
 
     /**
      * @param args the command line arguments
@@ -453,16 +473,17 @@ public class InterfazGrafica extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField campoBusqueda;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelOpciones;
