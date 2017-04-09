@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicio;
+package agenda;
 
 import com.google.i18n.phonenumbers.*;
 import java.util.Objects;
@@ -57,5 +57,12 @@ public class Telefono {
     public int compareTo(Telefono a){
        return this.numero.toString().compareTo(a.numero.toString());  
     }
+
+    @Override
+    public String toString() {
+        return numero.toString();
+    }
+    
  
 }
+
