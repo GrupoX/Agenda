@@ -13,7 +13,7 @@ import SearchTree.Position;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class Contacto implements Position{
+public class Contacto implements Position,Comparable{
     private String nombre;
     private LinkedList<Telefono> telefonos;
 
@@ -102,9 +102,16 @@ public class Contacto implements Position{
         final Contacto other = (Contacto) obj;
         return this.nombre.equals(other.nombre); 
     }
-    
-    public int compareTo(Contacto a){
-       int ret =  this.nombre.compareTo(a.nombre);
+
+    @Override
+    public Object getElement() {
+        return this;
+    }
+
+    @Override
+    public int compareTo(Object t) {
+        Contacto a = (Contacto) t;
+        int ret =  this.nombre.compareTo(a.nombre);
        
        if (ret==0){
            return this.telefonos.get(0).compareTo(a.telefonos.get(0));
@@ -112,10 +119,5 @@ public class Contacto implements Position{
        else{
            return ret;
        }
-    }
-
-    @Override
-    public Object getElement() {
-        return this;
     }
 }
