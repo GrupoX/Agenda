@@ -1,5 +1,6 @@
-package interfaz.agenda;
+package Interfaz;
 
+import Interfaz.IconCellRenderer;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;

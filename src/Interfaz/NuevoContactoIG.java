@@ -15,7 +15,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
      * Creates new form NuevoContactoIG
      */
     private InterfazGrafica ig;
-    public NuevoContactoIG( InterfazGrafica ig) {
+    public NuevoContactoIG(InterfazGrafica ig) {
         initComponents();
         this.setTitle("Añadir Contacto");
         this.setLocationRelativeTo(null);
