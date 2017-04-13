@@ -9,18 +9,24 @@ import SearchTree.Position;
 import SearchTree.RBTree;
 import com.google.i18n.phonenumbers.NumberParseException;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /*
  
  * @author Oscar de la Cuesta Campillo. www.palentino.es
  */
-public class Agenda{
+public class Agenda implements Serializable{
 
     private RBTree<Contacto> arbolDeContactos = new RBTree<>();
     
@@ -127,6 +133,5 @@ public class Agenda{
         }
     }
     
-
 }
 

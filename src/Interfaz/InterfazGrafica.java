@@ -1,8 +1,10 @@
 package Interfaz;
 
 import Interfaz.IconCellRenderer;
+import com.csvreader.CsvWriter;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.FileWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;

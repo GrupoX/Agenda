@@ -11,22 +11,28 @@ package agenda;
  */
 import SearchTree.Position;
 import java.util.LinkedList;
-import java.util.Objects;
 
-public class Contacto implements Position{
+public class Contacto implements Position,Comparable{
     private String nombre;
     private LinkedList<Telefono> telefonos;
 
-    
+    public Contacto (String nombre) throws Exception{
+        if (nombre.equals("") && nombre!=null){
+           this.nombre=nombre;
+           this.telefonos=new LinkedList<>();
+        }
+        else
+          throw new Exception("Contacto requiere nombre y/o telefono");      
+    }
     public Contacto(String nombre, Telefono telefono) throws Exception {
-        if ((nombre.equals(""))&&(telefono==null)){
+        if ((nombre.equals("") ||nombre == null)&&(telefono==null)){
              throw new Exception("Contacto requiere nombre y/o telefono");
         }
-        else if((nombre.equals(""))&&telefono!=null){
+        else if((nombre.equals("") ||nombre == null)&&telefono!=null){
             this.nombre=telefono.toString();
             telefonos = new LinkedList<>();
             this.telefonos.add(telefono);
-        }else if((!nombre.equals(""))&&(telefono==null)){
+        }else if((!(nombre.equals("") || nombre == null)) &&(telefono==null)){
             this.nombre=nombre;
             telefonos = new LinkedList<>();
         }else{
@@ -36,13 +42,13 @@ public class Contacto implements Position{
         }
     }
     public Contacto(String nombre, LinkedList<Telefono> telefonos) throws Exception {
-         if ((nombre.equals(""))&&(telefonos==null)){
+         if ((nombre.equals("") ||nombre == null)&&(telefonos==null)){
              throw new Exception("Contacto requiere nombre y/o telefono");
         }
-        else if((nombre.equals(""))&&telefonos!=null){
+        else if((nombre.equals("") ||nombre == null)&&telefonos!=null){
             this.nombre=telefonos.get(0).toString();
             this.telefonos=telefonos;
-        }else if((!nombre.equals(""))&&(telefonos==null)){
+        }else if((!(nombre.equals("") ||nombre == null))&&(telefonos==null)){
             this.nombre=nombre;
             this.telefonos = new LinkedList<>();
         }else{
@@ -52,8 +58,8 @@ public class Contacto implements Position{
         }
     }
     public void setNombre(String nomb) throws Exception{                
-        if(nomb.equals("")){
-            if(this.telefonos.size()==0){
+        if(nomb==null || nomb.equals("")){
+            if(this.telefonos.isEmpty()){
                 throw new Exception("Contacto requiere nombre y/o telefono");
             }
             else{
@@ -72,14 +78,6 @@ public class Contacto implements Position{
     public LinkedList<Telefono> getTelefonos() {
         return telefonos;
     }
-
-    public void setTelefonos(LinkedList<Telefono> telefonos) throws Exception {
-        if (this.nombre==null || this.nombre==""){
-            if (telefonos==null || telefonos.size()==0)
-                throw new Exception("Contacto requiere nombre y/o telefono");
-        }
-        this.telefonos=telefonos;
-    }
     
     public void anadeTelefono(Telefono a){
         if (a!=null){
@@ -87,7 +85,7 @@ public class Contacto implements Position{
         }
     }
     public void borraTelefono(Telefono a){
-        if (a!=null){
+        if (a!=null){          
             telefonos.remove(a);
         }
     }
@@ -103,9 +101,16 @@ public class Contacto implements Position{
         final Contacto other = (Contacto) obj;
         return this.nombre.equals(other.nombre); 
     }
-    
-    public int compareTo(Contacto a){
-       int ret =  this.nombre.compareTo(a.nombre);
+
+    @Override
+    public Object getElement() {
+        return this;
+    }
+
+    @Override
+    public int compareTo(Object t) {
+        Contacto a = (Contacto) t;
+        int ret =  this.nombre.compareTo(a.nombre);
        
        if (ret==0){
            return this.telefonos.get(0).compareTo(a.telefonos.get(0));
@@ -113,10 +118,5 @@ public class Contacto implements Position{
        else{
            return ret;
        }
-    }
-
-    @Override
-    public Object getElement() {
-        return this;
     }
 }
