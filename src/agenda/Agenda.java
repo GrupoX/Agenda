@@ -153,12 +153,12 @@ public class Agenda{
         }
     }
     
-    public void crearCopiaSeg (Agenda agd) {
+    public void crearCopiaSeg () {
         String ruta = "/copiaSeguridad/copia.dat";       //declaramos una nueva variable ruta
         try {
             FileOutputStream out = new FileOutputStream(ruta);
             ObjectOutputStream copia = new ObjectOutputStream(out);
-            copia.writeObject(agd);
+            copia.writeObject(this);
             copia.close();
         }
         catch (IOException ex) {

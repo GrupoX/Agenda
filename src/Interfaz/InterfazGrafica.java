@@ -519,12 +519,12 @@ public class InterfazGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaContactosMouseReleased
 
     private void jLabel10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseReleased
-        agd.crearCopiaSeg(agd);
+        agd.crearCopiaSeg();
         this.dispose();
     }//GEN-LAST:event_jLabel10MouseReleased
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        agd.restCopiaSeg();
+       
     }//GEN-LAST:event_formWindowActivated
 
     /**
@@ -557,17 +557,21 @@ public class InterfazGrafica extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                Agenda agenda = new Agenda();
+                //agenda = agenda.restCopiaSeg();
                 try {
-                    Agenda agenda = new Agenda();
+                    
                     agenda.Anadir("Alberto","676676676");
                     agenda.Anadir("Alvaro","676676676");
                     agenda.Anadir("Javier","676676676");
                     agenda.Anadir("Manuel","676676676");
                     agenda.Anadir("Yunai","676676676");
-                    new InterfazGrafica(agenda).setVisible(true);
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(InterfazGrafica.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                agenda.crearCopiaSeg();
+                new InterfazGrafica(agenda).setVisible(true);
             }
         });
     }
