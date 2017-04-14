@@ -7,6 +7,8 @@ package agenda;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -34,9 +36,13 @@ public class AgendaTest {
     
     @Before
     public void setUp() {
-        testAgenda = new Agenda();
-        testAgenda.Anadir("Manuel","666777888");
-        testAgenda.Anadir("Manu","555666777");
+        try {
+            testAgenda = new Agenda();
+            testAgenda.Anadir("Manuel","666777888");
+            testAgenda.Anadir("Manu","555666777");
+        } catch (Exception ex) {
+            Logger.getLogger(AgendaTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @After
@@ -47,7 +53,7 @@ public class AgendaTest {
      * Test of Consultar method, of class Agenda.
      */
     @Test
-    public void testConsultar_String_String_False() {
+    public void testConsultar_String_String_False() throws Exception {
         this.setUp();
         System.out.println("Consultar");
         String nombre = "Manue";
@@ -57,7 +63,7 @@ public class AgendaTest {
         assertEquals(expResult, result);
     }
      @Test
-    public void testConsultar_String_String_True() {
+    public void testConsultar_String_String_True() throws Exception {
         this.setUp();
         System.out.println("Consultar");
         String nombre = "Manuel";
@@ -125,7 +131,7 @@ public class AgendaTest {
      * Test of Anadir method, of class Agenda.
      */
     @Test
-    public void testAnadir_String_String_True() {
+    public void testAnadir_String_String_True() throws Exception {
         this.setUp();
         System.out.println("Anadir");
         String nombre = "Manue";
@@ -135,7 +141,7 @@ public class AgendaTest {
         assertEquals(expResult, result);
     }
      @Test
-    public void testAnadir_String_String_False() {
+    public void testAnadir_String_String_False() throws Exception {
         this.setUp();
         System.out.println("Anadir");
         String nombre = "Manuel";
@@ -188,21 +194,21 @@ public class AgendaTest {
      * Test of Eliminar method, of class Agenda.
      */
     @Test
-    public void testEliminar() {
+    public void testEliminar() throws Exception {
         this.setUp();
         System.out.println("Eliminar");
         String nombre = "Manuel";
         this.testAgenda.Eliminar(nombre);
         boolean expected = true;
         boolean returned = this.testAgenda.Anadir("Manuel", "666777888");
-        assertEquals(expected, returned);;
+        assertEquals(expected, returned);
     }
 
     /**
      * Test of ModificarNombre method, of class Agenda.
      */
     @Test
-    public void testModificarNombre() {
+    public void testModificarNombre() throws Exception {
         this.setUp();
         this.testAgenda.ModificarNombre("Manue","Manolo");
         boolean expResult = false;

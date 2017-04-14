@@ -17,12 +17,13 @@ public class Contacto implements Position,Comparable{
     private LinkedList<Telefono> telefonos;
 
     public Contacto (String nombre) throws Exception{
-        if (nombre.equals("") && nombre!=null){
-           this.nombre=nombre;
-           this.telefonos=new LinkedList<>();
+        if (!nombre.equals("") & nombre!=null){
+            this.nombre=nombre;
+            this.telefonos=new LinkedList<>();
         }
-        else
-          throw new Exception("Contacto requiere nombre y/o telefono");      
+        else{
+            throw new Exception("Contacto requiere nombre y/o telefono");  
+        }
     }
     public Contacto(String nombre, Telefono telefono) throws Exception {
         if ((nombre.equals("") ||nombre == null)&&(telefono==null)){

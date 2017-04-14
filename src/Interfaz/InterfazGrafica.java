@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -30,9 +32,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private boolean viendoContacto = false;
     private Agenda agd;
 
-    public InterfazGrafica() {
+    public InterfazGrafica(Agenda agenda) {
         initComponents();
         this.setTitle("Mi Agenda");
+        this.agd=agenda;
         //Posicionar el Frame en la Pantalla
         Toolkit t = Toolkit.getDefaultToolkit();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -374,7 +377,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseReleased
 
     private void jLabel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseReleased
-        System.out.println("HAS DADO 1");
+        System.out.println("Cargando copia en formato CSV...");
         String ruta = "";
         JFileChooser copiaDatos = new JFileChooser();
         LinkedList<Telefono> telefonos = new LinkedList<>();
@@ -410,7 +413,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseReleased
 
     private void jLabel5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseReleased
-        System.out.println("HAS DADO 2");
+        System.out.println("Creando copia en formato CSV...");
         String ruta = "";
         String telfs = "";
         Integer contador = 0;
@@ -516,12 +519,12 @@ public class InterfazGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaContactosMouseReleased
 
     private void jLabel10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseReleased
-        //agd.crearCopiaSeg(agd);
+        agd.crearCopiaSeg(agd);
         this.dispose();
     }//GEN-LAST:event_jLabel10MouseReleased
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        //agd.restCopiaSeg();
+        agd.restCopiaSeg();
     }//GEN-LAST:event_formWindowActivated
 
     /**
@@ -554,7 +557,17 @@ public class InterfazGrafica extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InterfazGrafica().setVisible(true);
+                try {
+                    Agenda agenda = new Agenda();
+                    agenda.Anadir("Alberto","676676676");
+                    agenda.Anadir("Alvaro","676676676");
+                    agenda.Anadir("Javier","676676676");
+                    agenda.Anadir("Manuel","676676676");
+                    agenda.Anadir("Yunai","676676676");
+                    new InterfazGrafica(agenda).setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(InterfazGrafica.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

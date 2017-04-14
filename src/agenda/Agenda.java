@@ -27,16 +27,9 @@ public class Agenda{
     private LinkedBinarySearchTree<Contacto> arbolDeContactos = new LinkedBinarySearchTree<>();
     
     //Consulta si existe un contacto
-    public boolean Consultar(String nombre) {
-        Contacto encontrado = null;
-        try {
-            Telefono tlf = null;
-            Contacto contactoParaBuscar = new Contacto(nombre,tlf);
-            encontrado = arbolDeContactos.find(contactoParaBuscar).getElement();
-        } catch (Exception ex) {
-            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return encontrado!=null;
+    public boolean Consultar(String nombre) throws Exception {
+        Contacto contactoParaBuscar = new Contacto(nombre);
+        return arbolDeContactos.find(contactoParaBuscar)!=null;
     }
     public boolean Consultar(Contacto contacto) {
         if (contacto!=null){
@@ -55,7 +48,7 @@ public class Agenda{
         }
     }
     
-    public boolean Añadir(String nombre, LinkedList telefonos){
+    public boolean Anadir(String nombre, LinkedList telefonos){
         boolean anyadido = false;
         Contacto aConsultar = null;
         try{
@@ -80,7 +73,7 @@ public class Agenda{
         return anyadido;
     }
     
-    public boolean Anadir(String nombre, String telefono) {
+    public boolean Anadir(String nombre, String telefono) throws Exception {
         boolean anyadido = false;
         if(!this.Consultar(nombre)){
             try {

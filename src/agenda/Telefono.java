@@ -28,6 +28,7 @@ public class Telefono {
  }
 
     public Phonenumber.PhoneNumber getNumero() {
+        System.out.println(numero);
         return numero;
     }
 

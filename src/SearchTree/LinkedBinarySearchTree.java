@@ -103,11 +103,11 @@ public class LinkedBinarySearchTree<E> implements BinarySearchTree<E> {
             return null;
         
         Position<E> curPos = treeSearch(value, this.binTree.root());
-
         if (comparator.compare(value, curPos.getElement()) == 0) {
             return curPos;
         } else {
             return null;
+            
         }
     }
 
