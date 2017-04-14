@@ -5,30 +5,20 @@
  */
 package agenda;
 
-import SearchTree.Position;
-import SearchTree.RBTree;
+import SearchTree.LinkedBinarySearchTree;
 import com.google.i18n.phonenumbers.NumberParseException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 
 /*
  
  * @author Oscar de la Cuesta Campillo. www.palentino.es
  */
-public class Agenda implements Serializable{
+public class Agenda{
 
-    private RBTree<Contacto> arbolDeContactos = new RBTree<>();
+    private LinkedBinarySearchTree<Contacto> arbolDeContactos = new LinkedBinarySearchTree<>();
     
     //Consulta si existe un contacto
     public boolean Consultar(String nombre, String telefono) {
@@ -43,7 +33,11 @@ public class Agenda implements Serializable{
         return encontrado!=null;
     }
     public boolean Consultar(Contacto contacto) {
-        return this.arbolDeContactos.find(contacto)!=null;
+        if (contacto!=null){
+            return this.arbolDeContactos.find(contacto)!=null;
+        }else{
+            return true;
+        }
     }
     public boolean Anadir(Contacto nuevoContacto){
         if(this.Consultar(nuevoContacto)){
@@ -54,7 +48,32 @@ public class Agenda implements Serializable{
             return true;
         }
     }
-
+    
+    public boolean Añadir(String nombre, LinkedList telefonos){
+        boolean anyadido = false;
+        Contacto aConsultar = null;
+        try{
+        aConsultar = new Contacto (nombre, telefonos);
+        }catch(Exception ex){
+            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(!this.Consultar(aConsultar)){
+            try {
+                Contacto nuevoContacto = new Contacto(nombre, telefonos);
+                this.arbolDeContactos.insert(nuevoContacto);
+                anyadido = true;
+            } catch (NumberParseException ex) {
+                Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            //YA EXISTE CON EL MISMO NOMBRE
+            anyadido = false;
+        }
+        return anyadido;
+    }
+    
     public boolean Anadir(String nombre, String telefono) {
         boolean anyadido = false;
         if(!this.Consultar(nombre, telefono)){
@@ -104,6 +123,7 @@ public class Agenda implements Serializable{
     public void Vaciar() {
         //Mostrar feedBack
         this.arbolDeContactos = null;
+        this.arbolDeContactos = new LinkedBinarySearchTree<>();
     }
     //Suponiendo que no exista la posibilidad de dos contactos con el mismo nombre
     public void Eliminar(String nombre) {
@@ -134,4 +154,3 @@ public class Agenda implements Serializable{
     }
     
 }
-

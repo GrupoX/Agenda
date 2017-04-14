@@ -108,15 +108,8 @@ public class Contacto implements Position,Comparable{
     }
 
     @Override
-    public int compareTo(Object t) {
-        Contacto a = (Contacto) t;
-        int ret =  this.nombre.compareTo(a.nombre);
-       
-       if (ret==0){
-           return this.telefonos.get(0).compareTo(a.telefonos.get(0));
-       }
-       else{
-           return ret;
-       }
+    public int compareTo(Object a){
+        Contacto comp = (Contacto)a;
+        return this.nombre.compareTo(comp.getNombre());
     }
 }
