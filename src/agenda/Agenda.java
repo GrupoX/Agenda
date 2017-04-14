@@ -5,8 +5,14 @@
  */
 package agenda;
 
-import SearchTree.LinkedBinarySearchTree;
+import SearchTree.*;
 import com.google.i18n.phonenumbers.NumberParseException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -21,12 +27,12 @@ public class Agenda{
     private LinkedBinarySearchTree<Contacto> arbolDeContactos = new LinkedBinarySearchTree<>();
     
     //Consulta si existe un contacto
-    public boolean Consultar(String nombre, String telefono) {
+    public boolean Consultar(String nombre) {
         Contacto encontrado = null;
         try {
             Telefono tlf = null;
             Contacto contactoParaBuscar = new Contacto(nombre,tlf);
-            encontrado = (Contacto)arbolDeContactos.find(contactoParaBuscar);
+            encontrado = arbolDeContactos.find(contactoParaBuscar).getElement();
         } catch (Exception ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,7 +82,7 @@ public class Agenda{
     
     public boolean Anadir(String nombre, String telefono) {
         boolean anyadido = false;
-        if(!this.Consultar(nombre, telefono)){
+        if(!this.Consultar(nombre)){
             try {
                 Telefono tlf = new Telefono(telefono);
                 Contacto nuevoContacto = new Contacto(nombre, tlf);
@@ -99,7 +105,7 @@ public class Agenda{
         try {
             Telefono tlf = null;
             Contacto contactoParaBuscar = new Contacto(nombre,tlf);
-            encontrado = (Contacto)arbolDeContactos.find(contactoParaBuscar);
+            encontrado = arbolDeContactos.find(contactoParaBuscar).getElement();
         } catch (Exception ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -115,7 +121,8 @@ public class Agenda{
         Iterator it = this.arbolDeContactos.iterator();
         LinkedList<Contacto> devuelta = new LinkedList<>();
         while(it.hasNext()){
-           devuelta.add((Contacto)it.next());
+            Position<Contacto> sig = (Position)it.next();
+            devuelta.add(sig.getElement());
         }
         return devuelta;
     }
@@ -151,6 +158,49 @@ public class Agenda{
         } catch (Exception ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void crearCopiaSeg (Agenda agd) {
+        String ruta = "/copiaSeguridad/copia.dat";       //declaramos una nueva variable ruta
+        try {
+            FileOutputStream out = new FileOutputStream(ruta);
+            ObjectOutputStream copia = new ObjectOutputStream(out);
+            copia.writeObject(agd);
+            copia.close();
+        }
+        catch (IOException ex) {
+            
+        }
+    }
+    
+    public Agenda restCopiaSeg(){
+        String ruta = "/copiaSeguridad/copia.dat";
+        ObjectInputStream copia = null;
+        Agenda agd = new Agenda();
+        //String nombreArchivo = "nadkd.dat";
+        try {
+            FileInputStream in = new FileInputStream(ruta);
+            copia = new ObjectInputStream(in);
+            try{
+                agd = (Agenda) copia.readObject();
+            }
+            catch (IOException ioe1) {
+
+            }
+            catch(ClassNotFoundException cnfe){
+
+            }
+            try{
+                copia.close();
+            }
+            catch(IOException ex2){
+            }
+        }
+        catch (FileNotFoundException fnfe) {
+        }
+        catch (IOException ioe1) {
+        }
+        return agd;
     }
     
 }

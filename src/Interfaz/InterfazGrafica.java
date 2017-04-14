@@ -1,11 +1,20 @@
 package Interfaz;
 
 import Interfaz.IconCellRenderer;
+import agenda.Agenda;
+import agenda.Contacto;
+import agenda.Telefono;
+import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
+import com.google.i18n.phonenumbers.NumberParseException;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.LinkedList;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,6 +28,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private boolean buscarOpen = false;
     private boolean nuevoContacto = false;
     private boolean viendoContacto = false;
+    private Agenda agd;
 
     public InterfazGrafica() {
         initComponents();
@@ -81,6 +91,11 @@ public class InterfazGrafica extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         panelBuscar.setBackground(new java.awt.Color(255, 255, 255));
@@ -168,7 +183,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelOpcionesLayout.setVerticalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +194,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelOpciones);
@@ -250,7 +265,6 @@ public class InterfazGrafica extends javax.swing.JFrame {
         jScrollPane2.setRequestFocusEnabled(false);
 
         tablaContactos.setBackground(new java.awt.Color(236, 240, 241));
-        tablaContactos.setForeground(new java.awt.Color(0, 0, 0));
         tablaContactos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -361,10 +375,77 @@ public class InterfazGrafica extends javax.swing.JFrame {
 
     private void jLabel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseReleased
         System.out.println("HAS DADO 1");
+        String ruta = "";
+        JFileChooser copiaDatos = new JFileChooser();
+        LinkedList<Telefono> telefonos = new LinkedList<>();
+        //ArrayList<String> arrayTelfs = new ArrayList<>();
+        if(copiaDatos.showOpenDialog(this)==copiaDatos.APPROVE_OPTION) {
+            try {
+                ruta = copiaDatos.getSelectedFile().getAbsolutePath();
+                CsvReader contactos_import = new CsvReader(ruta);
+                contactos_import.readHeaders();
+                while (contactos_import.readRecord()) {
+                    String nombre = contactos_import.get("Nombre");
+                    String telefono = contactos_import.get("Telefonos");
+                    String arrayTelfs[] = telefono.split(",");
+                    for(String telf : arrayTelfs){
+                        Telefono t = new Telefono(telf);
+                        telefonos.add(t);
+                    }
+                    Contacto c = new Contacto(nombre,telefonos);
+                    agd.Anadir(c);
+                }
+             
+                contactos_import.close();
+            } catch (FileNotFoundException ex) {
+                
+            } catch (IOException ex) {
+
+            } catch (NumberParseException ex) {
+
+            } catch (Exception ex) {
+                
+            }
+        }
     }//GEN-LAST:event_jLabel4MouseReleased
 
     private void jLabel5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseReleased
         System.out.println("HAS DADO 2");
+        String ruta = "";
+        String telfs = "";
+        Integer contador = 0;
+        JFileChooser copiaDatos = new JFileChooser();
+        if(copiaDatos.showSaveDialog(this)==copiaDatos.APPROVE_OPTION) {
+            ruta = copiaDatos.getSelectedFile().getAbsolutePath();
+            try {
+            CsvWriter csvOutput = new CsvWriter(new FileWriter(ruta, true), ',');
+            csvOutput.write("Nombre");
+            csvOutput.write("Telefonos");
+            csvOutput.endRecord();
+            LinkedList<Contacto> contactos = new LinkedList<>();
+            LinkedList<Telefono> telefonos = new LinkedList<>();
+            contactos = agd.Mostrar();
+            for(Contacto c : contactos){
+                csvOutput.write(c.getNombre());
+                for(Telefono t : telefonos){
+                    if(contador == 0){
+                        telfs = telfs+t.getNumero();
+                    }
+                    else{
+                        telfs = telfs+","+t.getNumero();
+                    }
+                    contador = contador + 1;
+                }
+                csvOutput.write(telfs);
+                csvOutput.endRecord();                   
+            }
+             
+            csvOutput.close();
+ 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_jLabel5MouseReleased
 
     private void jLabel6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseReleased
@@ -435,8 +516,13 @@ public class InterfazGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaContactosMouseReleased
 
     private void jLabel10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseReleased
+        //agd.crearCopiaSeg(agd);
         this.dispose();
     }//GEN-LAST:event_jLabel10MouseReleased
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //agd.restCopiaSeg();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

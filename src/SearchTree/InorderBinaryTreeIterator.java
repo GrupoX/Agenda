@@ -56,7 +56,7 @@ public class InorderBinaryTreeIterator<T> implements Iterator<Position<T>> {
         
         return aux;
     }
-
+    
     @Override
     public void remove() {
         throw new UnsupportedOperationException("Not implemented.");

@@ -53,7 +53,7 @@ public class AgendaTest {
         String nombre = "Manue";
         String telefono = "";
         boolean expResult = false;
-        boolean result = this.testAgenda.Consultar(nombre, telefono);
+        boolean result = this.testAgenda.Consultar(nombre);
         assertEquals(expResult, result);
     }
      @Test
@@ -63,7 +63,7 @@ public class AgendaTest {
         String nombre = "Manuel";
         String telefono = "";
         boolean expResult = true;
-        boolean result = this.testAgenda.Consultar(nombre, telefono);
+        boolean result = this.testAgenda.Consultar(nombre);
         assertEquals(expResult, result);
     }
 
