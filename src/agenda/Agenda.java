@@ -160,6 +160,7 @@ public class Agenda{
             ObjectOutputStream copia = new ObjectOutputStream(out);
             copia.writeObject(this);
             copia.close();
+            out.close();
         }
         catch (IOException ex) {
             
@@ -174,24 +175,12 @@ public class Agenda{
         try {
             FileInputStream in = new FileInputStream(ruta);
             copia = new ObjectInputStream(in);
-            try{
-                agd = (Agenda) copia.readObject();
-            }
-            catch (IOException ioe1) {
-
-            }
-            catch(ClassNotFoundException cnfe){
-
-            }
-            try{
-                copia.close();
-            }
-            catch(IOException ex2){
-            }
+            agd = (Agenda) copia.readObject();
+            copia.close();
+            in.close();
         }
-        catch (FileNotFoundException fnfe) {
-        }
-        catch (IOException ioe1) {
+        catch(IOException | ClassNotFoundException e){
+            
         }
         return agd;
     }

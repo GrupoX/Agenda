@@ -26,9 +26,11 @@ public class Telefono {
         numero = null;
     }
  }
+    public long getNumeroNacional(){
+        return numero.getNationalNumber();
+    }
 
     public Phonenumber.PhoneNumber getNumero() {
-        System.out.println(numero);
         return numero;
     }
 

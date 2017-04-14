@@ -381,7 +381,6 @@ public class InterfazGrafica extends javax.swing.JFrame {
         String ruta = "";
         JFileChooser copiaDatos = new JFileChooser();
         LinkedList<Telefono> telefonos = new LinkedList<>();
-        //ArrayList<String> arrayTelfs = new ArrayList<>();
         if(copiaDatos.showOpenDialog(this)==copiaDatos.APPROVE_OPTION) {
             try {
                 ruta = copiaDatos.getSelectedFile().getAbsolutePath();
@@ -432,10 +431,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 csvOutput.write(c.getNombre());
                 for(Telefono t : telefonos){
                     if(contador == 0){
-                        telfs = telfs+t.getNumero();
+                        telfs = telfs+"-"+t.getNumeroNacional();
                     }
                     else{
-                        telfs = telfs+","+t.getNumero();
+                        telfs = telfs+"-"+t.getNumeroNacional();
                     }
                     contador = contador + 1;
                 }
