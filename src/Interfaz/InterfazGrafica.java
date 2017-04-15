@@ -20,6 +20,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -59,10 +60,13 @@ public class InterfazGrafica extends javax.swing.JFrame {
     public void setViendoContactoFalse() {
         viendoContacto = false;
     }
-
+    
+    public JTable getTabla(){
+        return this.tablaContactos;
+    } 
     public void actualizarTabla(String busqueda) {
         if (busqueda.equals("todo")) {
-            int num_contactos = 30; //Cantidad de Resultados que tendra la Tabla
+            int num_contactos = agd.Mostrar().size(); //Cantidad de Resultados que tendra la Tabla
             tablaContactos.setDefaultRenderer(Object.class, new IconCellRenderer());
             DefaultTableModel model = (DefaultTableModel) tablaContactos.getModel();
             model.setRowCount(num_contactos);
@@ -70,7 +74,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
             ImageIcon icon1 = new ImageIcon(getClass().getResource("/assets/default-user-image.png"));
             for (int i = 0; i < num_contactos; i++) { //Voy Rellenando la tabla
                 tablaContactos.setValueAt(new JLabel(icon1), i, 0);
-                tablaContactos.setValueAt("Contenido " + i, i, 1);
+                tablaContactos.setValueAt(agd.Mostrar().get(i).getNombre(), i, 1);
             }
         }else{
             //Busqueda por Telefono o nombre

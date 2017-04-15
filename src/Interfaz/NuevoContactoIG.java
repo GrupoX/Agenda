@@ -9,8 +9,10 @@ import agenda.Agenda;
 import agenda.Contacto;
 import agenda.Telefono;
 import com.google.i18n.phonenumbers.NumberParseException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +25,9 @@ public class NuevoContactoIG extends javax.swing.JFrame {
      * Creates new form NuevoContactoIG
      */
     private InterfazGrafica ig;
+    private boolean masNumeros = false;
+    private DefaultListModel lm = new DefaultListModel();
+    private LinkedList<Telefono> telfs = new LinkedList<>();
     public NuevoContactoIG(InterfazGrafica ig) {
         initComponents();
         this.setTitle("Añadir Contacto");
@@ -51,7 +56,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<String>();
+        listaNumeros = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -121,12 +126,8 @@ public class NuevoContactoIG extends javax.swing.JFrame {
 
         jLabel7.setText("Numeros ya Añadidos:");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(listaNumeros);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,7 +152,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -181,14 +182,20 @@ public class NuevoContactoIG extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarAnyadirContactoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarAnyadirContactoMouseReleased
-                try {
+        try {
             String nombre = this.campoParaNombreContacto.getText();
-            String telefono = this.campoParaTelefono.getText();
-            Telefono tlf = new Telefono(telefono);
-            Contacto currentContacto = new Contacto(nombre, tlf);
+            Contacto currentContacto;
+            if (masNumeros){
+                currentContacto = new Contacto(nombre, telfs);
+            }else{
+                String telefono = this.campoParaTelefono.getText();
+                Telefono tlf = new Telefono(telefono);
+                currentContacto = new Contacto(nombre, tlf);
+            }
             Agenda current = this.ig.getAgenda();
             if(current.Anadir(currentContacto)){
                 JOptionPane.showMessageDialog(rootPane,"¡Contacto añadido con éxito!");
+                this.ig.actualizarTabla("todo");
                 this.dispose();
             }
             else{
@@ -210,7 +217,18 @@ public class NuevoContactoIG extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseReleased
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        // TODO add your handling code here:
+        try {
+            masNumeros = true;
+            Telefono tlf = new Telefono(this.campoParaTelefono.getText());
+            telfs.add(tlf);
+            lm.addElement(String.valueOf(tlf.getNumeroNacional()));
+            listaNumeros = new javax.swing.JList<>(lm);
+            listaNumeros.ensureIndexIsVisible(lm.getSize());
+            jScrollPane1.setViewportView(listaNumeros);
+            this.campoParaTelefono.setText("");
+        } catch (NumberParseException ex) {
+            Logger.getLogger(NuevoContactoIG.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jLabel6MouseClicked
     
     /**
@@ -239,7 +257,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(NuevoContactoIG.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -259,8 +277,8 @@ public class NuevoContactoIG extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listaNumeros;
     // End of variables declaration//GEN-END:variables
 }
