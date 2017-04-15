@@ -137,6 +137,10 @@ public class Agenda implements Serializable{
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public boolean isEmpty(){
+        return this.arbolDeContactos.isEmpty();
+    }
 
     public void ModificarNombre(String nombreAnt, String nuevoNombre) {
         try {
@@ -156,7 +160,7 @@ public class Agenda implements Serializable{
     
     public void crearCopiaSeg () {
         String ruta = System.getProperty("user.dir");       //declaramos una nueva variable ruta
-        ruta+="copiaDeSeguridad.dat";
+        ruta+="/copiaDeSeguridad.dat";
         File arch = new File(ruta); 
         try {
             ObjectOutputStream copia = new ObjectOutputStream(new FileOutputStream(arch));
@@ -170,7 +174,7 @@ public class Agenda implements Serializable{
     
     public Agenda restCopiaSeg(){
         String ruta = System.getProperty("user.dir");       //declaramos una nueva variable ruta
-        ruta+="copiaDeSeguridad.dat";
+        ruta+="/copiaDeSeguridad.dat";
         File arch = new File(ruta);
         Agenda agd = new Agenda();
         try {

@@ -68,7 +68,12 @@ public class InterfazGrafica extends javax.swing.JFrame {
     } 
     public void actualizarTabla(String busqueda) {
         if (busqueda.equals("todo")) {
-            int num_contactos = agd.Mostrar().size(); //Cantidad de Resultados que tendra la Tabla
+            int num_contactos;
+            if (this.agd.isEmpty()){
+                num_contactos = 0;
+            }else{
+                num_contactos = agd.Mostrar().size(); //Cantidad de Resultados que tendra la Tabla
+            }
             tablaContactos.setDefaultRenderer(Object.class, new IconCellRenderer());
             DefaultTableModel model = (DefaultTableModel) tablaContactos.getModel();
             model.setRowCount(num_contactos);
@@ -78,6 +83,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 tablaContactos.setValueAt(new JLabel(icon1), i, 0);
                 tablaContactos.setValueAt(agd.Mostrar().get(i).getNombre(), i, 1);
             }
+            
         }else{
             //Busqueda por Telefono o nombre
         }
@@ -426,6 +432,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
             }
             this.actualizarTabla("todo");
         }
+        panelOpciones.setVisible(false);
+        opcionesOpen = false;
+        panelBuscar.setVisible(false);
+        buscarOpen = false;
     }//GEN-LAST:event_btnImportarCSVMouseReleased
 
     private void btnExportarCSVMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarCSVMouseReleased
@@ -457,13 +467,23 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
+        panelOpciones.setVisible(false);
+        opcionesOpen = false;
+        panelBuscar.setVisible(false);
+        buscarOpen = false;
     }//GEN-LAST:event_btnExportarCSVMouseReleased
 
     private void btnEliminarTodoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarTodoMouseReleased
         int respuesta = JOptionPane.showConfirmDialog(panelOpciones, "Se borrarán todos los contactos","Desea continuar...",YES_NO_OPTION);
         if (respuesta==JOptionPane.YES_OPTION) {
             this.agd.Vaciar();
+            System.out.println(this.agd.isEmpty());
             JOptionPane.showMessageDialog(rootPane,"Contactos borrados satisfactoriamente");
+            this.actualizarTabla("todo");
+            panelOpciones.setVisible(false);
+            opcionesOpen = false;
+            panelBuscar.setVisible(false);
+            buscarOpen = false;
         }
     }//GEN-LAST:event_btnEliminarTodoMouseReleased
 
