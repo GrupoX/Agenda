@@ -10,8 +10,9 @@ import java.util.Queue;
 import SearchTree.BinaryTree;
 import SearchTree.PreorderIterator;
 import SearchTree.TreeIterator;
+import java.io.Serializable;
 
-class BTNode<T> implements Position<T> {
+class BTNode<T> implements Position<T>, Serializable {
     private T element;
     private BTNode<T> left, right, parent;
 
@@ -71,7 +72,7 @@ class BTNode<T> implements Position<T> {
  * @author A. Duarte, J. Vélez
  * @see BinaryTree
  */
-public class LinkedBinaryTree<E> implements BinaryTree<E> {
+public class LinkedBinaryTree<E> implements BinaryTree<E>, Serializable {
 
 	private BTNode<E> root;
 	private int size;

@@ -10,9 +10,10 @@ package agenda;
  * @author pc
  */
 import SearchTree.Position;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Contacto implements Position,Comparable{
+public class Contacto implements Position,Comparable,Serializable{
     private String nombre;
     private LinkedList<Telefono> telefonos;
 

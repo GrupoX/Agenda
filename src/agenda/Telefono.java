@@ -6,13 +6,14 @@
 package agenda;
 
 import com.google.i18n.phonenumbers.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author yunai
  */
-public class Telefono {
+public class Telefono implements Serializable{
     
  private PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
  private ShortNumberInfo shortInfo = ShortNumberInfo.getInstance();

@@ -7,12 +7,14 @@ package agenda;
 
 import SearchTree.*;
 import com.google.i18n.phonenumbers.NumberParseException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -22,7 +24,7 @@ import java.util.logging.Logger;
  
  * @author Oscar de la Cuesta Campillo. www.palentino.es
  */
-public class Agenda{
+public class Agenda implements Serializable{
 
     private LinkedBinarySearchTree<Contacto> arbolDeContactos = new LinkedBinarySearchTree<>();
     
@@ -121,17 +123,16 @@ public class Agenda{
     }
 
     public void Vaciar() {
-        //Mostrar feedBack
         this.arbolDeContactos = null;
         this.arbolDeContactos = new LinkedBinarySearchTree<>();
     }
     //Suponiendo que no exista la posibilidad de dos contactos con el mismo nombre
     public void Eliminar(String nombre) {
         try {
-            Telefono tlf = null;
-            Contacto contactoParaEliminar = new Contacto(nombre,tlf);
-            //Mostrar notificacion de "ELIMINADO"
+            if (this.Consultar(nombre)){
+            Contacto contactoParaEliminar = this.Buscar(nombre);
             this.arbolDeContactos.remove(contactoParaEliminar);
+            }
         } catch (Exception ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,7 +142,7 @@ public class Agenda{
         try {
             Contacto aModificar = this.Buscar(nombreAnt);
             Contacto modificado = aModificar;
-             modificado.setNombre(nuevoNombre);
+            modificado.setNombre(nuevoNombre);
             if (!this.Anadir(modificado)) {
                 //Lanzar mensaje, no se ha podido modificar, nombre ya existente
             }else{
@@ -154,33 +155,31 @@ public class Agenda{
     }
     
     public void crearCopiaSeg () {
-        String ruta = "/copiaSeguridad/copia.dat";       //declaramos una nueva variable ruta
+        String ruta = System.getProperty("user.dir");       //declaramos una nueva variable ruta
+        ruta+="copiaDeSeguridad.dat";
+        File arch = new File(ruta); 
         try {
-            FileOutputStream out = new FileOutputStream(ruta);
-            ObjectOutputStream copia = new ObjectOutputStream(out);
+            ObjectOutputStream copia = new ObjectOutputStream(new FileOutputStream(arch));
             copia.writeObject(this);
             copia.close();
-            out.close();
         }
         catch (IOException ex) {
-            
+            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public Agenda restCopiaSeg(){
-        String ruta = "/copiaSeguridad/copia.dat";
-        ObjectInputStream copia = null;
+        String ruta = System.getProperty("user.dir");       //declaramos una nueva variable ruta
+        ruta+="copiaDeSeguridad.dat";
+        File arch = new File(ruta);
         Agenda agd = new Agenda();
-        //String nombreArchivo = "nadkd.dat";
         try {
-            FileInputStream in = new FileInputStream(ruta);
-            copia = new ObjectInputStream(in);
-            agd = (Agenda) copia.readObject();
+            ObjectInputStream copia = new ObjectInputStream(new FileInputStream(arch));
+            agd = (Agenda)copia.readObject();
             copia.close();
-            in.close();
         }
-        catch(IOException | ClassNotFoundException e){
-            
+        catch(IOException | ClassNotFoundException ex){
+            Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
         }
         return agd;
     }

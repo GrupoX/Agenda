@@ -532,7 +532,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaContactosMouseReleased
 
     private void jLabel10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseReleased
-        agd.crearCopiaSeg();
+        //agd.crearCopiaSeg();
         this.dispose();
     }//GEN-LAST:event_jLabel10MouseReleased
 

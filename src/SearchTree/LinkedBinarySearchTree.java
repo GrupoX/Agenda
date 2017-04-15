@@ -10,6 +10,7 @@ import java.util.TreeSet;
 import SearchTree.Position;
 import SearchTree.LinkedBinaryTree;
 import SearchTree.InorderBinaryTreeIterator;
+import java.io.Serializable;
 
 
 
@@ -19,7 +20,7 @@ import SearchTree.InorderBinaryTreeIterator;
  * @author R. Cabido, A. Duarte, J. Vélez and J. Sánchez-Oro
  * @param <E> the type of the elements stored in the tree
  */
-public class LinkedBinarySearchTree<E> implements BinarySearchTree<E> {
+public class LinkedBinarySearchTree<E> implements BinarySearchTree<E>, Serializable {
 
     protected LinkedBinaryTree<E> binTree;
     protected Comparator<E> comparator;
