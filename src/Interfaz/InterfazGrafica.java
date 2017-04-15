@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -45,6 +47,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
         //Mostrar solo panel Principal
         panelOpciones.setVisible(false);
         panelBuscar.setVisible(false);
+    }
+    
+    public Agenda getAgenda(){
+        return this.agd;
     }
 
     public void setNuevoContactoFalse() {
@@ -78,9 +84,9 @@ public class InterfazGrafica extends javax.swing.JFrame {
         campoBusqueda = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         panelOpciones = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        btnImportarCSV = new javax.swing.JLabel();
+        btnExportarCSV = new javax.swing.JLabel();
+        btnEliminarTodo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -152,27 +158,27 @@ public class InterfazGrafica extends javax.swing.JFrame {
         panelOpciones.setBackground(new java.awt.Color(255, 255, 255));
         panelOpciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(40, 129, 186)));
 
-        jLabel4.setText("Importar CSV");
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnImportarCSV.setText("Importar CSV");
+        btnImportarCSV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImportarCSV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel4MouseReleased(evt);
+                btnImportarCSVMouseReleased(evt);
             }
         });
 
-        jLabel5.setText("Exportar CSV");
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnExportarCSV.setText("Exportar CSV");
+        btnExportarCSV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExportarCSV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel5MouseReleased(evt);
+                btnExportarCSVMouseReleased(evt);
             }
         });
 
-        jLabel6.setText("Eliminar Todo");
-        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnEliminarTodo.setText("Eliminar Todo");
+        btnEliminarTodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarTodo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel6MouseReleased(evt);
+                btnEliminarTodoMouseReleased(evt);
             }
         });
 
@@ -183,20 +189,20 @@ public class InterfazGrafica extends javax.swing.JFrame {
             .addGroup(panelOpcionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(btnImportarCSV)
+                    .addComponent(btnExportarCSV)
+                    .addComponent(btnEliminarTodo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelOpcionesLayout.setVerticalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcionesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
+                .addComponent(btnImportarCSV)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addComponent(btnExportarCSV)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(btnEliminarTodo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -376,7 +382,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel2MouseReleased
 
-    private void jLabel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseReleased
+    private void btnImportarCSVMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImportarCSVMouseReleased
         System.out.println("Cargando copia en formato CSV...");
         String ruta = "";
         JFileChooser copiaDatos = new JFileChooser();
@@ -409,9 +415,9 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 
             }
         }
-    }//GEN-LAST:event_jLabel4MouseReleased
+    }//GEN-LAST:event_btnImportarCSVMouseReleased
 
-    private void jLabel5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseReleased
+    private void btnExportarCSVMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarCSVMouseReleased
         System.out.println("Creando copia en formato CSV...");
         String ruta = "";
         String telfs = "";
@@ -448,11 +454,15 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
-    }//GEN-LAST:event_jLabel5MouseReleased
+    }//GEN-LAST:event_btnExportarCSVMouseReleased
 
-    private void jLabel6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseReleased
-        System.out.println("HAS DADO 3");
-    }//GEN-LAST:event_jLabel6MouseReleased
+    private void btnEliminarTodoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarTodoMouseReleased
+        int respuesta = JOptionPane.showConfirmDialog(panelOpciones, "Se borrarán todos los contactos","Desea continuar...",YES_NO_OPTION);
+        if (respuesta==JOptionPane.YES_OPTION) {
+            this.agd.Vaciar();
+            JOptionPane.showMessageDialog(rootPane,"Contactos borrados satisfactoriamente");
+        }
+    }//GEN-LAST:event_btnEliminarTodoMouseReleased
 
     private void tablaContactosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaContactosMouseClicked
         panelOpciones.setVisible(false);
@@ -576,14 +586,14 @@ public class InterfazGrafica extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnEliminarTodo;
+    private javax.swing.JLabel btnExportarCSV;
+    private javax.swing.JLabel btnImportarCSV;
     private javax.swing.JTextField campoBusqueda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

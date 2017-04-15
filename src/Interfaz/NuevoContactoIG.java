@@ -5,6 +5,14 @@
  */
 package Interfaz;
 
+import agenda.Agenda;
+import agenda.Contacto;
+import agenda.Telefono;
+import com.google.i18n.phonenumbers.NumberParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author almig
@@ -32,18 +40,18 @@ public class NuevoContactoIG extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        btnConfirmarAnyadirContacto = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        campoParaNombreContacto = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        campoParaTelefono = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jList1 = new javax.swing.JList<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -51,11 +59,11 @@ public class NuevoContactoIG extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(36, 115, 165));
         jPanel1.setForeground(new java.awt.Color(40, 129, 186));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/done.png"))); // NOI18N
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnConfirmarAnyadirContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/done.png"))); // NOI18N
+        btnConfirmarAnyadirContacto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfirmarAnyadirContacto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel2MouseReleased(evt);
+                btnConfirmarAnyadirContactoMouseReleased(evt);
             }
         });
 
@@ -82,7 +90,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(btnConfirmarAnyadirContacto)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -90,7 +98,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(btnConfirmarAnyadirContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -113,10 +121,10 @@ public class NuevoContactoIG extends javax.swing.JFrame {
 
         jLabel7.setText("Numeros ya Añadidos:");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jList1);
 
@@ -135,9 +143,9 @@ public class NuevoContactoIG extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
+                            .addComponent(campoParaNombreContacto)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField2)
+                                .addComponent(campoParaTelefono)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6))))
                     .addGroup(layout.createSequentialGroup()
@@ -154,14 +162,14 @@ public class NuevoContactoIG extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoParaNombreContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoParaTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
@@ -172,10 +180,29 @@ public class NuevoContactoIG extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
-        this.dispose();
+    private void btnConfirmarAnyadirContactoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarAnyadirContactoMouseReleased
+                try {
+            String nombre = this.campoParaNombreContacto.getText();
+            String telefono = this.campoParaTelefono.getText();
+            Telefono tlf = new Telefono(telefono);
+            Contacto currentContacto = new Contacto(nombre, tlf);
+            Agenda current = this.ig.getAgenda();
+            if(current.Anadir(currentContacto)){
+                JOptionPane.showMessageDialog(rootPane,"¡Contacto añadido con éxito!");
+                this.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane,"¡Contacto ya existente, cambie el nombre!");
+                this.campoParaNombreContacto.setText("");
+            }
+        } catch (NumberParseException ex) {
+            Logger.getLogger(NuevoContactoIG.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(NuevoContactoIG.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         ig.setNuevoContactoFalse();
-    }//GEN-LAST:event_jLabel2MouseReleased
+    }//GEN-LAST:event_btnConfirmarAnyadirContactoMouseReleased
 
     private void jLabel9MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseReleased
         this.dispose();
@@ -222,8 +249,10 @@ public class NuevoContactoIG extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnConfirmarAnyadirContacto;
+    private javax.swing.JTextField campoParaNombreContacto;
+    private javax.swing.JTextField campoParaTelefono;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -233,7 +262,5 @@ public class NuevoContactoIG extends javax.swing.JFrame {
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
