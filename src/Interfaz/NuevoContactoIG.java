@@ -225,7 +225,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
             listaNumeros = new javax.swing.JList<>(lm);
             listaNumeros.ensureIndexIsVisible(lm.getSize());
             jScrollPane1.setViewportView(listaNumeros);
-            this.campoParaTelefono.setText(" ");
+            this.campoParaTelefono.setText("");
         } catch (NumberParseException ex) {
             Logger.getLogger(NuevoContactoIG.class.getName()).log(Level.SEVERE, null, ex);
         }
