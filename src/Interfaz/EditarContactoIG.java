@@ -1,5 +1,7 @@
 package Interfaz;
 
+import agenda.Contacto;
+
 /**
  *
  * @author almig
@@ -11,13 +13,16 @@ public class EditarContactoIG extends javax.swing.JFrame {
      */
     private InterfazGrafica ig;
     private String contacto;
+    private Contacto contactoSelec;
     public EditarContactoIG(InterfazGrafica ig, String contacto) {
         initComponents();
         this.setTitle("Editar Contacto");
         this.setLocationRelativeTo(ig);
         this.ig = ig;
         this.contacto = contacto;
+        contactoSelec = ig.getAgenda().Buscar(contacto);
         campoNombre.setText(contacto);
+        
     }
 
     /**

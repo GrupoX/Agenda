@@ -396,16 +396,17 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 ruta = copiaDatos.getSelectedFile().getAbsolutePath();
                 CsvReader contactos_import = new CsvReader(ruta);
                 contactos_import.readHeaders();
+                this.agd=new Agenda();
                 while (contactos_import.readRecord()) {
                     String nombre = contactos_import.get("Nombre");
                     String telefono = contactos_import.get("Telefonos");
-                    String arrayTelfs[] = telefono.split(",");
+                    String arrayTelfs[] = telefono.split("-");
                     for(String telf : arrayTelfs){
                         Telefono t = new Telefono(telf);
                         telefonos.add(t);
                     }
                     Contacto c = new Contacto(nombre,telefonos);
-                    agd.Anadir(c);
+                    this.agd.Anadir(c);
                 }
              
                 contactos_import.close();
@@ -418,6 +419,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
             } catch (Exception ex) {
                 
             }
+            this.actualizarTabla("todo");
         }
     }//GEN-LAST:event_btnImportarCSVMouseReleased
 
@@ -425,7 +427,6 @@ public class InterfazGrafica extends javax.swing.JFrame {
         System.out.println("Creando copia en formato CSV...");
         String ruta = "";
         String telfs = "";
-        Integer contador = 0;
         JFileChooser copiaDatos = new JFileChooser();
         if(copiaDatos.showSaveDialog(this)==copiaDatos.APPROVE_OPTION) {
             ruta = copiaDatos.getSelectedFile().getAbsolutePath();
@@ -435,20 +436,14 @@ public class InterfazGrafica extends javax.swing.JFrame {
             csvOutput.write("Telefonos");
             csvOutput.endRecord();
             LinkedList<Contacto> contactos = new LinkedList<>();
-            LinkedList<Telefono> telefonos = new LinkedList<>();
             contactos = agd.Mostrar();
             for(Contacto c : contactos){
                 csvOutput.write(c.getNombre());
-                for(Telefono t : telefonos){
-                    if(contador == 0){
-                        telfs = telfs+"-"+t.getNumero();
-                    }
-                    else{
-                        telfs = telfs+"-"+t.getNumero();
-                    }
-                    contador = contador + 1;
+                for(Telefono t : c.getTelefonos()){
+                    telfs = telfs+"-"+t.getNumero();
                 }
                 csvOutput.write(telfs);
+                telfs = "";
                 csvOutput.endRecord();                   
             }
              
@@ -524,7 +519,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
             //tablaContactos.getValueAt(tablaContactos.getSelectedRow(), 1) devuelve el nombre seleccionado
             //Sustituir el String por un Contacto y Modificar el Contructor 
             //de la Clase EditarContactoIG
-            EditarContactoIG ec = new EditarContactoIG(this, "Alvaritto");
+            EditarContactoIG ec = new EditarContactoIG(this, (String) tablaContactos.getValueAt(tablaContactos.getSelectedRow(), 1));
             ec.setVisible(true);
             viendoContacto = true;
         }
