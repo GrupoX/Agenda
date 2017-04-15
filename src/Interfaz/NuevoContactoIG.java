@@ -221,7 +221,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
             masNumeros = true;
             Telefono tlf = new Telefono(this.campoParaTelefono.getText());
             telfs.add(tlf);
-            lm.addElement(String.valueOf(tlf.getNumeroNacional()));
+            lm.addElement(tlf.getNumero());
             listaNumeros = new javax.swing.JList<>(lm);
             listaNumeros.ensureIndexIsVisible(lm.getSize());
             jScrollPane1.setViewportView(listaNumeros);

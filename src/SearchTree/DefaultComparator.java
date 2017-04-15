@@ -1,12 +1,13 @@
 package SearchTree;
 
+import java.io.Serializable;
 import java.util.Comparator;
 /** Comparator based on the natural ordering
   *
   *  @author R. Cabido, A. Duarte and J. Vélez
   */
 
-public class DefaultComparator<E> implements Comparator<E> {
+public class DefaultComparator<E> implements Comparator<E>, Serializable {
   /** Compares two given elements
     *
     * @return a negative integer if <tt>a</tt> is less than <tt>b</tt>,

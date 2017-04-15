@@ -15,29 +15,33 @@ import java.util.Objects;
  */
 public class Telefono implements Serializable{
     
- private PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
- private ShortNumberInfo shortInfo = ShortNumberInfo.getInstance();
- private Phonenumber.PhoneNumber numero = new Phonenumber.PhoneNumber();
+private String numero;
+
  
- public Telefono (String a) throws NumberParseException{
+public Telefono (String a) throws NumberParseException{
+    PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+    ShortNumberInfo shortInfo = ShortNumberInfo.getInstance();
+    Phonenumber.PhoneNumber numeroP = new Phonenumber.PhoneNumber();
     if (a.length()>=3){ 
-        numero = phoneUtil.parse(a, "ES");
+        numeroP = phoneUtil.parse(a, "ES");
+        numero = String.valueOf(numeroP.getNationalNumber());
     }
     else{
         numero = null;
     }
  }
-    public long getNumeroNacional(){
-        return numero.getNationalNumber();
-    }
-
-    public Phonenumber.PhoneNumber getNumero() {
+    public String getNumero(){
         return numero;
     }
 
+
     public void setNumero(String a) throws NumberParseException {
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        ShortNumberInfo shortInfo = ShortNumberInfo.getInstance();
+        Phonenumber.PhoneNumber numeroP = new Phonenumber.PhoneNumber();
         if (a.length()>=3){ 
-        numero = phoneUtil.parse(a, "ES");
+            numeroP = phoneUtil.parse(a, "ES");
+            numero = String.valueOf(numeroP.getNationalNumber());
         }
         else{
             numero = null;
@@ -59,7 +63,7 @@ public class Telefono implements Serializable{
     }
     
     public int compareTo(Telefono a){
-       return this.numero.toString().compareTo(a.numero.toString());  
+       return this.numero.compareTo(a.numero);  
     }
  
 }
