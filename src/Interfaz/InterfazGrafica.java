@@ -9,9 +9,11 @@ import com.csvreader.CsvWriter;
 import com.google.i18n.phonenumbers.NumberParseException;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -390,7 +392,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
         System.out.println("Cargando copia en formato CSV...");
         String ruta = "";
         JFileChooser copiaDatos = new JFileChooser();
-        LinkedList<Telefono> telefonos = new LinkedList<>();
+        LinkedList<Telefono> telefonos;
         if(copiaDatos.showOpenDialog(this)==copiaDatos.APPROVE_OPTION) {
             try {
                 ruta = copiaDatos.getSelectedFile().getAbsolutePath();
@@ -401,9 +403,12 @@ public class InterfazGrafica extends javax.swing.JFrame {
                     String nombre = contactos_import.get("Nombre");
                     String telefono = contactos_import.get("Telefonos");
                     String arrayTelfs[] = telefono.split("-");
+                    telefonos = new LinkedList<>();
                     for(String telf : arrayTelfs){
+                        if (!(telf==null)&&!(telf.equals(""))){
                         Telefono t = new Telefono(telf);
                         telefonos.add(t);
+                        }
                     }
                     Contacto c = new Contacto(nombre,telefonos);
                     this.agd.Anadir(c);
@@ -430,25 +435,24 @@ public class InterfazGrafica extends javax.swing.JFrame {
         JFileChooser copiaDatos = new JFileChooser();
         if(copiaDatos.showSaveDialog(this)==copiaDatos.APPROVE_OPTION) {
             ruta = copiaDatos.getSelectedFile().getAbsolutePath();
+            File arch = new File(ruta);
+            arch.delete();
             try {
-            CsvWriter csvOutput = new CsvWriter(new FileWriter(ruta, true), ',');
-            csvOutput.write("Nombre");
-            csvOutput.write("Telefonos");
-            csvOutput.endRecord();
-            LinkedList<Contacto> contactos = new LinkedList<>();
-            contactos = agd.Mostrar();
-            for(Contacto c : contactos){
-                csvOutput.write(c.getNombre());
-                for(Telefono t : c.getTelefonos()){
-                    telfs = telfs+"-"+t.getNumero();
+                arch.createNewFile();
+                CsvWriter csvOutput = new CsvWriter(new FileWriter(ruta, true), ',');
+                csvOutput.write("Nombre");
+                csvOutput.write("Telefonos");
+                csvOutput.endRecord();
+                for(Contacto c : agd.Mostrar()){
+                    csvOutput.write(c.getNombre());
+                    for(Telefono t : c.getTelefonos()){
+                        telfs = telfs+"-"+t.getNumero();
+                    }
+                    csvOutput.write(telfs);
+                    telfs = "";
+                    csvOutput.endRecord();                   
                 }
-                csvOutput.write(telfs);
-                telfs = "";
-                csvOutput.endRecord();                   
-            }
-             
-            csvOutput.close();
- 
+                csvOutput.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
