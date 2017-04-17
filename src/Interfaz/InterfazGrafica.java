@@ -94,21 +94,21 @@ public class InterfazGrafica extends javax.swing.JFrame {
 
         panelBuscar = new javax.swing.JPanel();
         campoBusqueda = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        botonBuscaContacto = new javax.swing.JLabel();
         panelOpciones = new javax.swing.JPanel();
         btnImportarCSV = new javax.swing.JLabel();
         btnExportarCSV = new javax.swing.JLabel();
         btnEliminarTodo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        botonOpciones = new javax.swing.JLabel();
+        botonBusqueda = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        botonAgregarContacto = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaContactos = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        botonCerrar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -134,11 +134,11 @@ public class InterfazGrafica extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/next.png"))); // NOI18N
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonBuscaContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/next.png"))); // NOI18N
+        botonBuscaContacto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonBuscaContacto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel7MouseReleased(evt);
+                botonBuscaContactoMouseReleased(evt);
             }
         });
 
@@ -150,7 +150,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(campoBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                .addComponent(botonBuscaContacto)
                 .addContainerGap())
         );
         panelBuscarLayout.setVerticalGroup(
@@ -159,7 +159,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(campoBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonBuscaContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(24, 24, 24))
         );
 
@@ -224,21 +224,21 @@ public class InterfazGrafica extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(40, 129, 186));
         jPanel1.setForeground(new java.awt.Color(40, 129, 186));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu.png"))); // NOI18N
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonOpciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu.png"))); // NOI18N
+        botonOpciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonOpciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel2MouseReleased(evt);
+                botonOpcionesMouseReleased(evt);
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel3.setFocusCycleRoot(true);
-        jLabel3.setFocusTraversalPolicyProvider(true);
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
+        botonBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonBusqueda.setFocusCycleRoot(true);
+        botonBusqueda.setFocusTraversalPolicyProvider(true);
+        botonBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel3MouseReleased(evt);
+                botonBusquedaMouseReleased(evt);
             }
         });
 
@@ -247,11 +247,11 @@ public class InterfazGrafica extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Mi Agenda");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add-user.png"))); // NOI18N
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonAgregarContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add-user.png"))); // NOI18N
+        botonAgregarContacto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonAgregarContacto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel9MouseReleased(evt);
+                botonAgregarContactoMouseReleased(evt);
             }
         });
 
@@ -263,11 +263,11 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(botonBusqueda)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
+                .addComponent(botonAgregarContacto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(botonOpciones)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -275,10 +275,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(botonBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonAgregarContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -348,12 +348,12 @@ public class InterfazGrafica extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(40, 129, 186));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/close.png"))); // NOI18N
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.setFocusable(false);
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/close.png"))); // NOI18N
+        botonCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCerrar.setFocusable(false);
+        botonCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel10MouseReleased(evt);
+                botonCerrarMouseReleased(evt);
             }
         });
 
@@ -363,14 +363,14 @@ public class InterfazGrafica extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(278, Short.MAX_VALUE)
-                .addComponent(jLabel10)
+                .addComponent(botonCerrar)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jLabel10))
+                .addComponent(botonCerrar))
         );
 
         getContentPane().add(jPanel3);
@@ -379,7 +379,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
+    private void botonOpcionesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonOpcionesMouseReleased
         if (!opcionesOpen) {
             tablaContactos.clearSelection();
             panelOpciones.setVisible(true);
@@ -392,7 +392,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
             panelBuscar.setVisible(false);
             buscarOpen = false;
         }
-    }//GEN-LAST:event_jLabel2MouseReleased
+    }//GEN-LAST:event_botonOpcionesMouseReleased
 
     private void btnImportarCSVMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImportarCSVMouseReleased
         System.out.println("Cargando copia en formato CSV...");
@@ -494,7 +494,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
         buscarOpen = false;
     }//GEN-LAST:event_tablaContactosMouseClicked
 
-    private void jLabel3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseReleased
+    private void botonBusquedaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBusquedaMouseReleased
         if (!buscarOpen) {
             panelBuscar.setVisible(true);
             campoBusqueda.setText("Nombre o Número");
@@ -508,7 +508,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
             opcionesOpen = false;
             panelOpciones.setVisible(false);
         }
-    }//GEN-LAST:event_jLabel3MouseReleased
+    }//GEN-LAST:event_botonBusquedaMouseReleased
 
     private void campoBusquedaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoBusquedaMouseReleased
         campoBusqueda.setText("");
@@ -516,16 +516,16 @@ public class InterfazGrafica extends javax.swing.JFrame {
         panelBuscar.setVisible(true);
     }//GEN-LAST:event_campoBusquedaMouseReleased
 
-    private void jLabel7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseReleased
+    private void botonBuscaContactoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscaContactoMouseReleased
         System.out.println("Has Buscado Algo");
         //actualizarTabla("Texto de Busqueda");
-    }//GEN-LAST:event_jLabel7MouseReleased
+    }//GEN-LAST:event_botonBuscaContactoMouseReleased
 
     private void campoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBusquedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoBusquedaActionPerformed
 
-    private void jLabel9MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseReleased
+    private void botonAgregarContactoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarContactoMouseReleased
         if (!nuevoContacto) {
             panelBuscar.setVisible(false);
             buscarOpen = false;
@@ -535,7 +535,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
             nc.setVisible(true);
             nuevoContacto = true;
         }
-    }//GEN-LAST:event_jLabel9MouseReleased
+    }//GEN-LAST:event_botonAgregarContactoMouseReleased
 
     private void tablaContactosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaContactosMouseReleased
         if (!buscarOpen && !opcionesOpen && !viendoContacto) {
@@ -550,10 +550,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tablaContactosMouseReleased
 
-    private void jLabel10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseReleased
+    private void botonCerrarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCerrarMouseReleased
         agd.crearCopiaSeg();
         this.dispose();
-    }//GEN-LAST:event_jLabel10MouseReleased
+    }//GEN-LAST:event_botonCerrarMouseReleased
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        
@@ -597,16 +597,16 @@ public class InterfazGrafica extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel botonAgregarContacto;
+    private javax.swing.JLabel botonBuscaContacto;
+    private javax.swing.JLabel botonBusqueda;
+    private javax.swing.JLabel botonCerrar;
+    private javax.swing.JLabel botonOpciones;
     private javax.swing.JLabel btnEliminarTodo;
     private javax.swing.JLabel btnExportarCSV;
     private javax.swing.JLabel btnImportarCSV;
     private javax.swing.JTextField campoBusqueda;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

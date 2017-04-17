@@ -1,6 +1,16 @@
 package Interfaz;
 
+import agenda.Agenda;
 import agenda.Contacto;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_CANCEL_OPTION;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
+import static javax.swing.JOptionPane.YES_OPTION;
 
 /**
  *
@@ -24,6 +34,28 @@ public class EditarContactoIG extends javax.swing.JFrame {
         campoNombre.setText(contacto);
         
     }
+    
+    public JList getLista(){
+        return this.listaTelefonos;
+    }
+    
+    public void actualizarLista(String busqueda) {
+        if (busqueda.equals("todo")) {
+            int num_telefonos;
+            if (this.contactoSelec.getTelefonos().isEmpty()){
+                num_telefonos = 0;
+            }else{
+                num_telefonos = contactoSelec.getTelefonos().size();
+            }
+            listaTelefonos.setCellRenderer(null);
+            ImageIcon icon1 = new ImageIcon(getClass().getResource("/assets/default-user-image.png"));
+            for (int i = 0; i < num_telefonos; i++) { //Voy Rellenando la tabla
+                //listaTelefonos.add(this.contacto, this.contactoSelec);
+            }
+        }else{
+            
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,21 +67,21 @@ public class EditarContactoIG extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        btnGuardaCambiosEditar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        botonCancelarEditar = new javax.swing.JLabel();
+        botonEliminarContacto = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         campoNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        campoTelefono = new javax.swing.JTextField();
+        botonAgregarTelefono = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        listaTelefonos = new javax.swing.JList<String>();
+        botonEliminarTelefono = new javax.swing.JLabel();
+        botonLlamada = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -57,11 +89,11 @@ public class EditarContactoIG extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(36, 115, 165));
         jPanel1.setForeground(new java.awt.Color(40, 129, 186));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/done.png"))); // NOI18N
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGuardaCambiosEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/done.png"))); // NOI18N
+        btnGuardaCambiosEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardaCambiosEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel2MouseReleased(evt);
+                btnGuardaCambiosEditarMouseReleased(evt);
             }
         });
 
@@ -70,19 +102,19 @@ public class EditarContactoIG extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Ver/Editar Contacto");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/cancel.png"))); // NOI18N
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonCancelarEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/cancel.png"))); // NOI18N
+        botonCancelarEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCancelarEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel9MouseReleased(evt);
+                botonCancelarEditarMouseReleased(evt);
             }
         });
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bin.png"))); // NOI18N
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonEliminarContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bin.png"))); // NOI18N
+        botonEliminarContacto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonEliminarContacto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel11MouseReleased(evt);
+                botonEliminarContactoMouseReleased(evt);
             }
         });
 
@@ -94,11 +126,11 @@ public class EditarContactoIG extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel11)
+                .addComponent(botonEliminarContacto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
+                .addComponent(botonCancelarEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(btnGuardaCambiosEditar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -106,10 +138,10 @@ public class EditarContactoIG extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(btnGuardaCambiosEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonCancelarEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonEliminarContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -119,26 +151,31 @@ public class EditarContactoIG extends javax.swing.JFrame {
 
         jLabel5.setText("Teléfono:");
 
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
-        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonAgregarTelefono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        botonAgregarTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
+        botonAgregarTelefono.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonAgregarTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botonAgregarTelefonoMouseReleased(evt);
+            }
+        });
 
         jLabel7.setText("Telefonos:");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        listaTelefonos.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listaTelefonos);
 
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/trash.png"))); // NOI18N
-        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonEliminarTelefono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        botonEliminarTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/trash.png"))); // NOI18N
+        botonEliminarTelefono.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/phone.png"))); // NOI18N
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonLlamada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        botonLlamada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/phone.png"))); // NOI18N
+        botonLlamada.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,18 +195,18 @@ public class EditarContactoIG extends javax.swing.JFrame {
                     .addComponent(campoNombre)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
+                            .addComponent(campoTelefono)
                             .addComponent(jScrollPane1))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6))
+                                .addComponent(botonAgregarTelefono))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(botonEliminarTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botonLlamada, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,16 +221,16 @@ public class EditarContactoIG extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonAgregarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonLlamada, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botonEliminarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -202,19 +239,40 @@ public class EditarContactoIG extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
+    private void btnGuardaCambiosEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardaCambiosEditarMouseReleased
+        try {
+            String nombre = this.campoNombre.getText();
+            this.contactoSelec.setNombre(nombre);
+            JOptionPane.showMessageDialog(rootPane,"¡Contacto editado con éxito!");
+            this.ig.actualizarTabla("todo");
+            this.dispose();
+            ig.setViendoContactoFalse();
+        } catch (Exception ex) {
+            Logger.getLogger(EditarContactoIG.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGuardaCambiosEditarMouseReleased
+
+    private void botonCancelarEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarEditarMouseReleased
         this.dispose();
         ig.setViendoContactoFalse();
-    }//GEN-LAST:event_jLabel2MouseReleased
+    }//GEN-LAST:event_botonCancelarEditarMouseReleased
 
-    private void jLabel9MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseReleased
-        this.dispose();
-        ig.setViendoContactoFalse();
-    }//GEN-LAST:event_jLabel9MouseReleased
+    private void botonEliminarContactoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarContactoMouseReleased
+        int opcion;
+        opcion = JOptionPane.showConfirmDialog(rootPane, "¿Estás seguro que deseas borrar el contacto?", "Mensaje", YES_NO_OPTION);
+        if(opcion == YES_OPTION){
+            Agenda agd = this.ig.getAgenda();
+            agd.Eliminar(this.contacto);
+            JOptionPane.showMessageDialog(rootPane,"¡Contacto borrado con éxito!");
+            this.ig.actualizarTabla("todo");
+            this.dispose();
+            ig.setViendoContactoFalse();
+        }
+    }//GEN-LAST:event_botonEliminarContactoMouseReleased
 
-    private void jLabel11MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel11MouseReleased
+    private void botonAgregarTelefonoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarTelefonoMouseReleased
+        
+    }//GEN-LAST:event_botonAgregarTelefonoMouseReleased
 
     /**
      * @param args the command line arguments
@@ -253,21 +311,21 @@ public class EditarContactoIG extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel botonAgregarTelefono;
+    private javax.swing.JLabel botonCancelarEditar;
+    private javax.swing.JLabel botonEliminarContacto;
+    private javax.swing.JLabel botonEliminarTelefono;
+    private javax.swing.JLabel botonLlamada;
+    private javax.swing.JLabel btnGuardaCambiosEditar;
     private javax.swing.JTextField campoNombre;
+    private javax.swing.JTextField campoTelefono;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JList<String> listaTelefonos;
     // End of variables declaration//GEN-END:variables
 }

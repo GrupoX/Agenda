@@ -47,7 +47,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnConfirmarAnyadirContacto = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        btnCancelarAgregarContacto = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         campoParaNombreContacto = new javax.swing.JTextField();
@@ -56,7 +56,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaNumeros = new javax.swing.JList<>();
+        listaNumeros = new javax.swing.JList<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -77,11 +77,11 @@ public class NuevoContactoIG extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Añadir Contacto");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/cancel.png"))); // NOI18N
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCancelarAgregarContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/cancel.png"))); // NOI18N
+        btnCancelarAgregarContacto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelarAgregarContacto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel9MouseReleased(evt);
+                btnCancelarAgregarContactoMouseReleased(evt);
             }
         });
 
@@ -93,7 +93,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
+                .addComponent(btnCancelarAgregarContacto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnConfirmarAnyadirContacto)
                 .addContainerGap())
@@ -105,7 +105,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnConfirmarAnyadirContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancelarAgregarContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -211,10 +211,10 @@ public class NuevoContactoIG extends javax.swing.JFrame {
         ig.setNuevoContactoFalse();
     }//GEN-LAST:event_btnConfirmarAnyadirContactoMouseReleased
 
-    private void jLabel9MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseReleased
+    private void btnCancelarAgregarContactoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarAgregarContactoMouseReleased
         this.dispose();
         ig.setNuevoContactoFalse();
-    }//GEN-LAST:event_jLabel9MouseReleased
+    }//GEN-LAST:event_btnCancelarAgregarContactoMouseReleased
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         try {
@@ -267,6 +267,7 @@ public class NuevoContactoIG extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnCancelarAgregarContacto;
     private javax.swing.JLabel btnConfirmarAnyadirContacto;
     private javax.swing.JTextField campoParaNombreContacto;
     private javax.swing.JTextField campoParaTelefono;
@@ -276,7 +277,6 @@ public class NuevoContactoIG extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaNumeros;
