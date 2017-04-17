@@ -2,13 +2,12 @@ package Interfaz;
 
 import agenda.Agenda;
 import agenda.Contacto;
+import agenda.Telefono;
+import com.google.i18n.phonenumbers.NumberParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.YES_NO_CANCEL_OPTION;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import static javax.swing.JOptionPane.YES_OPTION;
 
@@ -23,7 +22,9 @@ public class EditarContactoIG extends javax.swing.JFrame {
      */
     private InterfazGrafica ig;
     private String contacto;
-    private Contacto contactoSelec;
+    private Contacto contactoSelec, contactoMod;
+    private DefaultListModel lm = new DefaultListModel();
+    
     public EditarContactoIG(InterfazGrafica ig, String contacto) {
         initComponents();
         this.setTitle("Editar Contacto");
@@ -31,31 +32,24 @@ public class EditarContactoIG extends javax.swing.JFrame {
         this.ig = ig;
         this.contacto = contacto;
         contactoSelec = ig.getAgenda().Buscar(contacto);
+        try {
+            contactoMod = new Contacto(contactoSelec.getNombre());
+        } catch (Exception ex) {
+            Logger.getLogger(EditarContactoIG.class.getName()).log(Level.SEVERE, null, ex);
+        }
         campoNombre.setText(contacto);
+        for(Telefono tel: this.contactoSelec.getTelefonos()){
+            lm.addElement(tel.getNumero());
+            contactoMod.anadeTelefono(tel);
+        }
+        this.listaTelefonos = new javax.swing.JList<>(lm);
+        listaTelefonos.ensureIndexIsVisible(lm.getSize());
+        jScrollPane1.setViewportView(listaTelefonos);
         
     }
     
-    public JList getLista(){
-        return this.listaTelefonos;
-    }
     
-    public void actualizarLista(String busqueda) {
-        if (busqueda.equals("todo")) {
-            int num_telefonos;
-            if (this.contactoSelec.getTelefonos().isEmpty()){
-                num_telefonos = 0;
-            }else{
-                num_telefonos = contactoSelec.getTelefonos().size();
-            }
-            listaTelefonos.setCellRenderer(null);
-            ImageIcon icon1 = new ImageIcon(getClass().getResource("/assets/default-user-image.png"));
-            for (int i = 0; i < num_telefonos; i++) { //Voy Rellenando la tabla
-                //listaTelefonos.add(this.contacto, this.contactoSelec);
-            }
-        }else{
-            
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,7 +73,7 @@ public class EditarContactoIG extends javax.swing.JFrame {
         botonAgregarTelefono = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaTelefonos = new javax.swing.JList<String>();
+        listaTelefonos = new javax.swing.JList<>();
         botonEliminarTelefono = new javax.swing.JLabel();
         botonLlamada = new javax.swing.JLabel();
 
@@ -162,16 +156,21 @@ public class EditarContactoIG extends javax.swing.JFrame {
 
         jLabel7.setText("Telefonos:");
 
-        listaTelefonos.setModel(new javax.swing.AbstractListModel() {
+        listaTelefonos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(listaTelefonos);
 
         botonEliminarTelefono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         botonEliminarTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/trash.png"))); // NOI18N
         botonEliminarTelefono.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonEliminarTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botonEliminarTelefonoMouseReleased(evt);
+            }
+        });
 
         botonLlamada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         botonLlamada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/phone.png"))); // NOI18N
@@ -242,8 +241,10 @@ public class EditarContactoIG extends javax.swing.JFrame {
     private void btnGuardaCambiosEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardaCambiosEditarMouseReleased
         try {
             String nombre = this.campoNombre.getText();
-            this.contactoSelec.setNombre(nombre);
+            this.contactoMod.setNombre(nombre);
             JOptionPane.showMessageDialog(rootPane,"¡Contacto editado con éxito!");
+            this.ig.getAgenda().Eliminar(contactoSelec.getNombre());
+            this.ig.getAgenda().Anadir(contactoMod);
             this.ig.actualizarTabla("todo");
             this.dispose();
             ig.setViendoContactoFalse();
@@ -271,8 +272,36 @@ public class EditarContactoIG extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEliminarContactoMouseReleased
 
     private void botonAgregarTelefonoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarTelefonoMouseReleased
-        
+        try {
+            Telefono tlf = new Telefono(this.campoTelefono.getText());
+            this.contactoMod.anadeTelefono(tlf);
+            lm.addElement(tlf.getNumero());
+            listaTelefonos = new javax.swing.JList<>(lm);
+            listaTelefonos.ensureIndexIsVisible(lm.getSize());
+            jScrollPane1.setViewportView(listaTelefonos);
+            this.campoTelefono.setText("");
+        } catch (NumberParseException ex) {
+            Logger.getLogger(NuevoContactoIG.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonAgregarTelefonoMouseReleased
+
+    private void botonEliminarTelefonoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarTelefonoMouseReleased
+        int opcion;
+        Telefono telSelec = null;
+        try {
+            telSelec = new Telefono(this.listaTelefonos.getSelectedValue());
+        } catch (NumberParseException ex) {
+            Logger.getLogger(EditarContactoIG.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        opcion = JOptionPane.showConfirmDialog(rootPane, "¿Estás seguro que deseas borrar el número "+telSelec.getNumero()+"?", "Mensaje", YES_NO_OPTION);
+        if(opcion == YES_OPTION){
+            this.contactoMod.borraTelefono(telSelec);
+            lm.removeElement(telSelec.getNumero());
+            listaTelefonos = new javax.swing.JList<>(lm);
+            listaTelefonos.ensureIndexIsVisible(lm.getSize());
+            jScrollPane1.setViewportView(listaTelefonos);
+        }
+    }//GEN-LAST:event_botonEliminarTelefonoMouseReleased
 
     /**
      * @param args the command line arguments
