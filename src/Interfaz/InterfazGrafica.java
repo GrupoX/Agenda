@@ -37,6 +37,20 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private boolean viendoContacto = false;
     private Agenda agd;
 
+    private static boolean containsIgnoreCase(String str, String searchStr)     {
+        if(str == null || searchStr == null) return false;
+
+        final int length = searchStr.length();
+        if (length == 0)
+            return true;
+
+        for (int i = str.length() - length; i >= 0; i--) {
+            if (str.regionMatches(true, i, searchStr, 0, length))
+                return true;
+        }
+        return false;
+    }
+    
     public InterfazGrafica(Agenda agenda) {
         initComponents();
         this.setTitle("Mi Agenda");
@@ -85,7 +99,27 @@ public class InterfazGrafica extends javax.swing.JFrame {
             }
             
         }else{
-            //Busqueda por Telefono o nombre
+            LinkedList<Contacto> lista = new LinkedList<>();
+            for (Contacto c :this.agd.Mostrar()){
+                if(containsIgnoreCase(c.getNombre(),busqueda)){
+                    lista.add(c);
+                }
+            }
+            int num_contactos;
+            if (this.agd.isEmpty()){
+                num_contactos = 0;
+            }else{
+                num_contactos = lista.size(); //Cantidad de Resultados que tendra la Tabla
+            }
+            tablaContactos.setDefaultRenderer(Object.class, new IconCellRenderer());
+            DefaultTableModel model = (DefaultTableModel) tablaContactos.getModel();
+            model.setRowCount(num_contactos);
+            tablaContactos.getTableHeader().setUI(null);
+            ImageIcon icon1 = new ImageIcon(getClass().getResource("/assets/default-user-image.png"));
+            for (int i = 0; i < num_contactos; i++) { //Voy Rellenando la tabla
+                tablaContactos.setValueAt(new JLabel(icon1), i, 0);
+                tablaContactos.setValueAt(lista.get(i).getNombre(), i, 1);
+            }
         }
     }
         @SuppressWarnings("unchecked")
@@ -131,6 +165,11 @@ public class InterfazGrafica extends javax.swing.JFrame {
         campoBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoBusquedaActionPerformed(evt);
+            }
+        });
+        campoBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoBusquedaKeyReleased(evt);
             }
         });
 
@@ -522,7 +561,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBuscaContactoMouseReleased
 
     private void campoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBusquedaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_campoBusquedaActionPerformed
 
     private void botonAgregarContactoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarContactoMouseReleased
@@ -558,6 +597,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        
     }//GEN-LAST:event_formWindowActivated
+
+    private void campoBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoBusquedaKeyReleased
+        actualizarTabla(campoBusqueda.getText());
+    }//GEN-LAST:event_campoBusquedaKeyReleased
 
     /**
      * @param args the command line arguments
