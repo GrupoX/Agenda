@@ -9,7 +9,6 @@ import SearchTree.*;
 import com.google.i18n.phonenumbers.NumberParseException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -131,7 +130,7 @@ public class Agenda implements Serializable{
         try {
             if (this.Consultar(nombre)){
             Contacto contactoParaEliminar = this.Buscar(nombre);
-            this.arbolDeContactos.remove(contactoParaEliminar);
+            this.arbolDeContactos.remove(this.arbolDeContactos.find(contactoParaEliminar));
             }
         } catch (Exception ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
