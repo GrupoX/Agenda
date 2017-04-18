@@ -127,10 +127,15 @@ public class Agenda implements Serializable{
     }
     //Suponiendo que no exista la posibilidad de dos contactos con el mismo nombre
     public void Eliminar(String nombre) {
+        LinkedList<Contacto> contactos;
         try {
             if (this.Consultar(nombre)){
             Contacto contactoParaEliminar = this.Buscar(nombre);
-            this.arbolDeContactos.remove(this.arbolDeContactos.find(contactoParaEliminar));
+            contactos = this.Mostrar();
+            this.Vaciar();
+            contactos.remove(contactoParaEliminar);
+            for(Contacto nuevo:contactos)
+                this.arbolDeContactos.insert(nuevo);
             }
         } catch (Exception ex) {
             Logger.getLogger(Agenda.class.getName()).log(Level.SEVERE, null, ex);
