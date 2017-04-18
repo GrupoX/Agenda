@@ -65,6 +65,10 @@ public Telefono (String a) throws NumberParseException{
     public int compareTo(Telefono a){
        return this.numero.compareTo(a.numero);  
     }
- 
+    
+    @Override
+    public String toString(){
+        return this.numero;
+    }
 }
 

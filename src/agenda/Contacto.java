@@ -114,4 +114,9 @@ public class Contacto implements Position,Comparable,Serializable{
         Contacto comp = (Contacto)a;
         return this.nombre.compareTo(comp.getNombre());
     }
+    
+    @Override
+    public String toString(){
+        return "Nombre:"+this.nombre+" Numeros:"+this.telefonos.toString();
+    }
 }
