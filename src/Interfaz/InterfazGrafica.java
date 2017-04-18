@@ -128,7 +128,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
 
         panelBuscar = new javax.swing.JPanel();
         campoBusqueda = new javax.swing.JTextField();
-        botonBuscaContacto = new javax.swing.JLabel();
+        botonCancelarBusqueda = new javax.swing.JLabel();
         panelOpciones = new javax.swing.JPanel();
         btnImportarCSV = new javax.swing.JLabel();
         btnExportarCSV = new javax.swing.JLabel();
@@ -173,11 +173,11 @@ public class InterfazGrafica extends javax.swing.JFrame {
             }
         });
 
-        botonBuscaContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/next.png"))); // NOI18N
-        botonBuscaContacto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonBuscaContacto.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonCancelarBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/delete.png"))); // NOI18N
+        botonCancelarBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCancelarBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                botonBuscaContactoMouseReleased(evt);
+                botonCancelarBusquedaMouseReleased(evt);
             }
         });
 
@@ -189,7 +189,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(campoBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonBuscaContacto)
+                .addComponent(botonCancelarBusqueda)
                 .addContainerGap())
         );
         panelBuscarLayout.setVerticalGroup(
@@ -198,7 +198,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(campoBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(botonBuscaContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonCancelarBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(24, 24, 24))
         );
 
@@ -555,10 +555,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
         panelBuscar.setVisible(true);
     }//GEN-LAST:event_campoBusquedaMouseReleased
 
-    private void botonBuscaContactoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscaContactoMouseReleased
-        System.out.println("Has Buscado Algo");
-        //actualizarTabla("Texto de Busqueda");
-    }//GEN-LAST:event_botonBuscaContactoMouseReleased
+    private void botonCancelarBusquedaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarBusquedaMouseReleased
+        panelBuscar.setVisible(false);
+        actualizarTabla("todo");
+    }//GEN-LAST:event_botonCancelarBusquedaMouseReleased
 
     private void campoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBusquedaActionPerformed
         
@@ -602,47 +602,12 @@ public class InterfazGrafica extends javax.swing.JFrame {
         actualizarTabla(campoBusqueda.getText());
     }//GEN-LAST:event_campoBusquedaKeyReleased
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Agenda agenda = new Agenda();
-                agenda = agenda.restCopiaSeg();
-                new InterfazGrafica(agenda).setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel botonAgregarContacto;
-    private javax.swing.JLabel botonBuscaContacto;
     private javax.swing.JLabel botonBusqueda;
+    private javax.swing.JLabel botonCancelarBusqueda;
     private javax.swing.JLabel botonCerrar;
     private javax.swing.JLabel botonOpciones;
     private javax.swing.JLabel btnEliminarTodo;
